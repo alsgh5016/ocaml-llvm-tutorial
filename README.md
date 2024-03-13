@@ -3,8 +3,9 @@
 # Install ocaml package in your Ubuntu System
 ```
 bash -c "sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)"
+opam init
 opam switch create 4.11.1
-eval $(opam env --switch-4.11.1)
+eval $(opam env --switch=4.11.1)
 opam install ocamlbuild ocamlfind
 opam install llvm.14.0.6
 ```
