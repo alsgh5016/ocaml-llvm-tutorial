@@ -25,8 +25,15 @@ let _ =
 
   let printf_ty = var_arg_function_type i32_t [| pointer_type i8_t |] in
   let printf = declare_function "printf" printf_ty llm in
-  add_function_attr printf Attribute.Nounwind ;
-  add_param_attr (param printf 0) Attribute.Nocapture ;
+
+  let nounwind_attr = Llvm.create_enum_attr llctx "nounwind" 0L in
+  add_function_attr printf nounwind_attr AttrIndex.Function ;
+
+  (* add_function_attr printf Attribute.Nounwind ; *)
+
+  let nocapture_attr = Llvm.create_enum_attr llctx "nocapture" 0L in
+  add_function_attr printf nocapture_attr (AttrIndex.Param 0);
+  (* add_param_attr (param printf 0) Attribute.Nocapture ; *)
 
   let s = build_global_stringptr "Hello, world!\n" "" llbuilder in
   (* try commenting these two lines and compare the result *)

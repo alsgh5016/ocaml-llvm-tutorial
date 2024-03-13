@@ -44,13 +44,13 @@ run: $(TOOLS) hello
 	./hello
 
 hello: hello.o
-	$(CLANG) -o $@ $<
+	$(CLANG) -pie -o $@ $< -Wl,-z,relro,-z,now -v
 
 hello.o: hello.s
-	$(CLANG) -c hello.s
+	$(CLANG) -fPIE -c hello.s
 
 hello.s: hello.bc
-	$(LLC) $<
+	$(LLC) -relocation-model=pic $<
 
 hello.bc: $(TOOLS)
-	CAML_LD_LIBRARY_PATH=/usr/lib/ocaml/llvm-$(LLVM_VERSION) ./build/tutorial04/src/tutorial04.byte $@
+	CAML_LD_LIBRARY_PATH=$(OCAMLPATH)/stublibs/ ./build/tutorial04/src/tutorial04.byte $@
