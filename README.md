@@ -1,7 +1,7 @@
 # ocaml-llvm-tutorial
 
 # Install ocaml package in your Ubuntu System
-```
+```shell
 bash -c "sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)"
 opam init
 opam switch create 4.11.1
@@ -12,7 +12,7 @@ opam install llvm.14.0.6
 - opam env 버전은 적당히 골라서 사용하면 됨
     - part1, part2, part3, part4 Makefile에서 env 버전 경로만 정확하게 저장하면 됨
 
-    ```
+    ```makefile
     ...
     OCAML_VERSION := 4.11.1 # write your env version
     LLVM_VERSION := 14 # write your llvm version
@@ -35,7 +35,7 @@ make run
 <br></br>
 
 # part1 code
-```
+```ocaml
 open Llvm
 
 let _ =
@@ -55,7 +55,7 @@ let _ =
 <br></br>
 
 # part2 code
-```
+```ocaml
 let rec print_type llty =
   let ty = Llvm.classify_type llty in
   match ty with
@@ -129,7 +129,7 @@ let _ =
 <br></br>
 
 # part3 code
-```
+```ocaml
 open Llvm
 
 let _ =
@@ -164,7 +164,7 @@ entry:
 ```
 
 # part4 code
-```
+```ocaml
 open Llvm
 
 let add_target_triple triple llm =
